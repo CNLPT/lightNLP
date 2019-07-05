@@ -1,5 +1,6 @@
 import torch
 from tqdm import tqdm
+from time import sleep
 
 from ...utils.learning import adjust_learning_rate
 from ...utils.log import logger
@@ -41,6 +42,7 @@ class CWS(Module):
             bilstmcrf.train()
             acc_loss = 0
             for item in tqdm(train_iter):
+                sleep(0.01)
                 bilstmcrf.zero_grad()
                 item_text_sentences = item.text[0]
                 item_text_lengths = item.text[1]
@@ -49,6 +51,7 @@ class CWS(Module):
                 item_loss.backward()
                 optim.step()
             logger.info('epoch: {}, acc_loss: {}'.format(epoch, acc_loss))
+            logger.info("我在这里有些改进：进度条哈哈")
             if dev_path:
                 dev_score = self._validate(dev_dataset)
                 logger.info('dev score:{}'.format(dev_score))
