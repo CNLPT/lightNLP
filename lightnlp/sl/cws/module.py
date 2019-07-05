@@ -1,6 +1,5 @@
 import torch
 from tqdm import tqdm
-from time import sleep
 
 from ...utils.learning import adjust_learning_rate
 from ...utils.log import logger
@@ -42,7 +41,7 @@ class CWS(Module):
             bilstmcrf.train()
             acc_loss = 0
             for item in tqdm(train_iter):
-                sleep(0.01)
+                print(item.text[0], "========")
                 bilstmcrf.zero_grad()
                 item_text_sentences = item.text[0]
                 item_text_lengths = item.text[1]
